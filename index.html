@@ -23,11 +23,11 @@ body {
 
 /* MAIN CARD */
 .container {
-    background: linear-gradient(135deg, #ffe6eb, #fff0f5);
-    padding: 40px;
-    border-radius: 24px;
+    background: linear-gradient(135deg, #ffd6e0, #ffe6eb);
+    padding: 42px;
+    border-radius: 26px;
     text-align: center;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.18);
     position: relative;
     z-index: 2;
 }
@@ -56,7 +56,7 @@ button {
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: 0.25s ease;
 }
 
 #yesBtn {
@@ -66,7 +66,6 @@ button {
 
 #yesBtn:hover {
     transform: scale(1.1);
-    background: #ff2e55;
 }
 
 #noBtn {
@@ -76,10 +75,6 @@ button {
 }
 
 /* Wiggle */
-.wiggle {
-    animation: wiggle 0.3s ease;
-}
-
 @keyframes wiggle {
     0% { transform: rotate(0); }
     25% { transform: rotate(-4deg); }
@@ -88,78 +83,124 @@ button {
     100% { transform: rotate(0); }
 }
 
+.wiggle {
+    animation: wiggle 0.3s ease;
+}
+
 /* ---------- CORNER DECORATIONS ---------- */
 .corner {
     position: fixed;
-    z-index: 1;
     pointer-events: none;
+    z-index: 1;
+    animation: floatIdle 8s ease-in-out infinite;
 }
 
-/* Drop animation */
+/* Gentle idle motion */
+@keyframes floatIdle {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+    100% { transform: translateY(0); }
+}
+
+/* Entrance animations */
 .top {
-    top: -220px;
-    animation: dropIn 1.2s ease forwards;
+    top: -260px;
+    animation: dropIn 1.2s ease forwards, floatIdle 8s ease-in-out infinite;
+}
+
+.bottom {
+    opacity: 0;
+    animation: riseIn 1.4s ease forwards, floatIdle 9s ease-in-out infinite;
+    animation-delay: 0.8s;
 }
 
 @keyframes dropIn {
     to { top: 0; }
 }
 
-/* TOP LEFT – BIGGER */
-.top.left {
-    left: 0;
-    width: 300px;
+@keyframes riseIn {
+    to {
+        opacity: 1;
+        transform: translateY(-10px);
+    }
 }
 
-/* TOP RIGHT – HIGHER */
+/* Positions */
+.top.left {
+    left: 0;
+    width: 320px;
+}
+
 .top.right {
     right: 0;
-    top: -260px;
     width: 200px;
 }
 
-/* BOTTOM LEFT – MOVED RIGHT */
 .bottom.left {
     bottom: 0;
     left: 40px;
-    width: 170px;
+    width: 180px;
 }
 
-/* BOTTOM RIGHT – BIGGER */
 .bottom.right {
     bottom: 0;
     right: 0;
-    width: 180px;
+    width: 190px;
+}
+
+/* Floating hearts */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp 6s linear forwards;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- DECORATIONS -->
-<img src="top-left.png" class="corner top left" alt="">
-<img src="top-right.png" class="corner top right" alt="">
-<img src="bottom-left.png" class="corner bottom left" alt="">
-<img src="bottom-right.png" class="corner bottom right" alt="">
+<!-- CORNER IMAGES -->
+<img src="top-left.png" class="corner top left">
+<img src="top-right.png" class="corner top right">
+<img src="bottom-left.png" class="corner bottom left">
+<img src="bottom-right.png" class="corner bottom right">
 
 <!-- MAIN CONTENT -->
 <div class="container">
     <img src="image.png" class="main" alt="Devi ❤️">
-
     <h1>Devi, will you be my Valentine? 💖</h1>
 
     <div class="buttons">
-        <button id="yesBtn" onclick="window.location.href='yes.html'">
+        <button id="yesBtn" onclick="location.href='yes.html'">
             Yes 💘
         </button>
-
-        <button id="noBtn">
-            No 😢
-        </button>
+        <button id="noBtn">No 😢</button>
     </div>
 </div>
 
 <script>
+/* Floating hearts restore */
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (16 + Math.random() * 10) + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}, 700);
+
+/* NO BUTTON LOGIC */
 const noBtn = document.getElementById("noBtn");
 
 const texts = [
@@ -175,43 +216,48 @@ const texts = [
 ];
 
 let attempts = 0;
-let activated = false;
-let converted = false;
+let movable = false;
+let readyToConvert = false;
 
 noBtn.addEventListener("mouseenter", () => {
-
-    if (converted) return;
-
-    if (!activated) {
-        activated = true;
+    if (!movable) {
+        movable = true;
         noBtn.style.position = "fixed";
     }
 
-    if (attempts >= texts.length) {
-        // FINAL TRANSFORMATION
-        converted = true;
-        noBtn.textContent = "Caught ya… I was an YES all along 😘";
-        noBtn.style.background = "#ff4d6d";
-        noBtn.style.color = "white";
-        noBtn.style.left = "50%";
-        noBtn.style.top = "65%";
-        noBtn.style.transform = "translate(-50%, -50%) scale(1.1)";
-        noBtn.onclick = () => window.location.href = "yes.html";
-        return;
+    if (readyToConvert) return;
+
+    if (attempts < texts.length) {
+        noBtn.textContent = texts[attempts];
+        attempts++;
+
+        const padding = 20;
+        const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+        const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+        noBtn.style.left = Math.random() * maxX + "px";
+        noBtn.style.top = Math.random() * maxY + "px";
+
+        noBtn.classList.add("wiggle");
+        setTimeout(() => noBtn.classList.remove("wiggle"), 300);
+
+        if (attempts === texts.length) {
+            readyToConvert = true;
+        }
     }
+});
 
-    const padding = 20;
-    const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-    const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+/* Convert ONLY on click after "Okay click me" */
+noBtn.addEventListener("click", () => {
+    if (!readyToConvert) return;
 
-    noBtn.style.left = Math.random() * maxX + "px";
-    noBtn.style.top = Math.random() * maxY + "px";
-
-    noBtn.textContent = texts[attempts];
-    attempts++;
-
-    noBtn.classList.add("wiggle");
-    setTimeout(() => noBtn.classList.remove("wiggle"), 300);
+    noBtn.textContent = "Caught ya… I was an YES all along 😘";
+    noBtn.style.background = "#ff4d6d";
+    noBtn.style.color = "white";
+    noBtn.style.left = "50%";
+    noBtn.style.top = "65%";
+    noBtn.style.transform = "translate(-50%, -50%) scale(1.1)";
+    noBtn.onclick = () => location.href = "yes.html";
 });
 </script>
 
