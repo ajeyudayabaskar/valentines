@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission Successful 💌</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(
+        -45deg,
+        #ffd1dc,
+        #ffe6eb,
+        #ffdbe6,
+        #fff0f5
+    );
+    background-size: 400% 400%;
+    animation: bgPulse 28s ease infinite;
+    overflow: hidden;
+}
+
+/* Very slow background pulse */
+@keyframes bgPulse {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 24px;
+}
+
+h1 {
+    color: #c9184a;
+    font-size: 2.3rem;
+    margin-bottom: 14px;
+    animation: pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+    100% { transform: scale(1); }
+}
+
+/* Framing line */
+#intro {
+    font-size: 0.95rem;
+    color: #7a1c2f;
+    margin-bottom: 18px;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+#message {
+    font-size: 1.15rem;
+    color: #6a040f;
+    max-width: 520px;
+    line-height: 1.7;
+    white-space: pre-line;
+    min-height: 160px;
+}
+
+/* Glow emphasis */
+.glow {
+    animation: glow 2s ease-in-out;
+}
+
+@keyframes glow {
+    0% { text-shadow: none; }
+    50% { text-shadow: 0 0 10px rgba(255, 77, 109, 0.6); }
+    100% { text-shadow: none; }
+}
+
+#startBtn {
+    margin-top: 30px;
+    background-color: #ff6b81;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    padding: 15px 36px;
+    font-size: 18px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#startBtn span {
+    display: block;
+    transition: opacity 0.2s ease;
+}
+
+#startBtn .hoverText {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+}
+
+#startBtn:hover {
+    transform: scale(1.06);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+#startBtn:hover .defaultText {
+    opacity: 0;
+}
+
+#startBtn:hover .hoverText {
+    opacity: 1;
+}
+
+/* Floating hearts */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 22px;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.85;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+
+/* Cursor hearts */
+.cursor-heart {
+    position: fixed;
+    pointer-events: none;
+    font-size: 16px;
+    animation: fadeOut 1s ease forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Mission successful 💌</h1>
+
+    <div id="intro">This is something I wanted to tell you properly…</div>
+
+    <div id="message"></div>
+
+    <button id="startBtn">
+        <span class="defaultText">Special message from Aj 💌</span>
+        <span class="hoverText">Go on… open it 💕</span>
+    </button>
+</div>
+
+<script>
+const rawText =
+`I knew you would say Yes 😉😉😉
+
+Happy Valentines day, Devi 💝... with you around even normal days feels like a Valentines day to me 💓 and I want you to be my forever Valentine 💌💖
+
+Watch out for more presents and surprises 🎁🎁🎁`;
+
+let index = 0;
+const speed = 40;
+const messageEl = document.getElementById("message");
+const startBtn = document.getElementById("startBtn");
+const intro = document.getElementById("intro");
+
+let heartInterval = 900;
+let heartTimer = setInterval(createHeart, heartInterval);
+
+function typeWriter() {
+    if (index < rawText.length) {
+        messageEl.innerHTML += rawText.charAt(index);
+        index++;
+        setTimeout(typeWriter, speed);
+    } else {
+        applyGlow();
+    }
+}
+
+startBtn.addEventListener("click", () => {
+    startBtn.style.display = "none";
+    intro.style.opacity = 1;
+    typeWriter();
+
+    clearInterval(heartTimer);
+    heartTimer = setInterval(createHeart, 400);
+});
+
+/* Floating hearts */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (18 + Math.random() * 14) + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}
+
+/* Cursor heart trail */
+document.addEventListener("mousemove", e => {
+    const h = document.createElement("div");
+    h.className = "cursor-heart";
+    h.innerText = "💗";
+    h.style.left = e.clientX + "px";
+    h.style.top = e.clientY + "px";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 1000);
+});
+
+/* Touch support */
+document.addEventListener("touchmove", e => {
+    const touch = e.touches[0];
+    if (!touch) return;
+    const h = document.createElement("div");
+    h.className = "cursor-heart";
+    h.innerText = "💗";
+    h.style.left = touch.clientX + "px";
+    h.style.top = touch.clientY + "px";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 1000);
+});
+
+/* Glow important words */
+function applyGlow() {
+    const words = ["Yes", "Devi", "forever Valentine"];
+    let html = messageEl.innerHTML;
+    words.forEach(word => {
+        html = html.replace(word, `<span class="glow">${word}</span>`);
+    });
+    messageEl.innerHTML = html;
+}
+</script>
+
+</body>
+</html>
