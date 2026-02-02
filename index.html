@@ -2,170 +2,148 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Devi ❤️</title>
+<title>Will You Be My Valentine 💘</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #ffe6eb, #fff0f5);
-    overflow: hidden;
-}
-
-/* ================= DECORATIONS ================= */
-
-/* Hanging hearts (top-left) */
-.hanging-hearts {
-    position: fixed;
-    top: -220px;
-    left: 0;
-    width: 220px;
-    z-index: 1;
-    animation: dropIn 1.2s ease-out forwards, sway 5s ease-in-out infinite;
-    mix-blend-mode: screen; /* removes black background visually */
-    pointer-events: none;
-}
-
-@keyframes dropIn {
-    to { top: -20px; }
-}
-
-@keyframes sway {
-    0%,100% { transform: rotate(-2deg); }
-    50% { transform: rotate(2deg); }
-}
-
-/* Cupid (bottom-left) */
-.cupid {
-    position: fixed;
-    bottom: 10px;
-    left: 10px;
-    width: 140px;
-    z-index: 1;
-    animation: floatCupid 4s ease-in-out infinite;
-    pointer-events: none;
-}
-
-@keyframes floatCupid {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-/* ================= MAIN CONTENT ================= */
-
-.container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-    position: relative;
-    z-index: 2;
-}
-
-img.main {
-    width: 70%;
-    max-width: 300px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-}
-
-h1 {
-    color: #d6336c;
-    font-size: 1.8rem;
-    margin-bottom: 30px;
-}
-
-/* YES BUTTON */
-#yesBtn {
-    background-color: #ff4d6d;
-    color: white;
-    font-size: 20px;
-    padding: 15px 40px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    margin-bottom: 20px;
-}
-
-/* NO BUTTON */
-#noBtn {
-    position: fixed;
-    background-color: #adb5bd;
-    color: white;
-    font-size: 16px;
-    padding: 10px 28px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    left: 50%;
-    top: 65%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-}
-
-/* Wiggle animation */
-@keyframes wiggle {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(-5deg); }
-    50% { transform: rotate(5deg); }
-    75% { transform: rotate(-5deg); }
-    100% { transform: rotate(0deg); }
-}
-
-.wiggle {
-    animation: wiggle 0.4s infinite;
-}
-
-/* Floating hearts */
-.heart {
-    position: fixed;
-    bottom: -20px;
-    font-size: 22px;
-    animation: floatUp 6s linear infinite;
-    opacity: 0.8;
-    pointer-events: none;
-}
-
-@keyframes floatUp {
-    to {
-        transform: translateY(-110vh);
-        opacity: 0;
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        text-align: center;
     }
-}
+
+    .container {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(10px);
+        padding: 40px 50px;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        z-index: 5;
+    }
+
+    h1 {
+        font-size: 2.2em;
+        color: #b30059;
+        margin-bottom: 20px;
+    }
+
+    img.main {
+        width: 260px;
+        border-radius: 15px;
+        margin-bottom: 25px;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        position: relative;
+    }
+
+    button {
+        font-size: 1.1em;
+        padding: 12px 28px;
+        border-radius: 30px;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+
+    #yesBtn {
+        background: #ff4d6d;
+        color: white;
+    }
+
+    #noBtn {
+        background: #f1f1f1;
+        color: #333;
+        position: relative; /* important: natural position on load */
+    }
+
+    /* Wiggle */
+    .wiggle {
+        animation: wiggle 0.35s ease;
+    }
+
+    @keyframes wiggle {
+        0% { transform: rotate(0deg); }
+        25% { transform: rotate(-5deg); }
+        50% { transform: rotate(5deg); }
+        75% { transform: rotate(-3deg); }
+        100% { transform: rotate(0deg); }
+    }
+
+    /* ==========================
+       CORNER DECORATIONS
+    ========================== */
+
+    .corner {
+        position: fixed;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    /* Top decorations slide in */
+    .top {
+        top: -120px;
+        animation: dropIn 1.2s ease forwards;
+    }
+
+    @keyframes dropIn {
+        to { top: 0; }
+    }
+
+    .top.left {
+        left: 0;
+        width: 140px;
+    }
+
+    .top.right {
+        right: 0;
+        width: 140px;
+    }
+
+    .bottom.left {
+        bottom: 0;
+        left: 0;
+        width: 140px;
+    }
+
+    .bottom.right {
+        bottom: 0;
+        right: 0;
+        width: 140px;
+    }
+
 </style>
 </head>
 
 <body>
 
-<!-- DECORATIVE ELEMENTS -->
-<img src="top-left.png" class="hanging-hearts" alt="">
-<img src="top-right.png" class="cupid" alt="">
+<!-- Corner Decorations -->
+<img src="top-left.png" class="corner top left" alt="">
+<img src="top-right.jpg" class="corner top right" alt="">
+<img src="cupid.png" class="corner bottom left" alt="">
+<img src="calendar.png" class="corner bottom right" alt="">
 
-<!-- MAIN CONTENT -->
 <div class="container">
-    <img src="image.png" class="main" alt="Devi ❤️">
-    <h1>Devi, will you be my Valentine? 💖</h1>
-    <button id="yesBtn">Yes 💘</button>
+    <h1>Will you be my Valentine? 💖</h1>
+
+    <img src="image.jpg" class="main" alt="Devi ❤️">
+
+    <div class="buttons">
+        <button id="yesBtn" onclick="goYes()">Yes 💘</button>
+        <button id="noBtn">No 🙈</button>
+    </div>
 </div>
 
-<button id="noBtn">No 😢</button>
-
 <script>
-/* Floating hearts */
-setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerText = "💖";
-    heart.style.left = Math.random() * 100 + "vw";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-}, 600);
-
-/* NO BUTTON LOGIC — slippery eel */
 const noBtn = document.getElementById("noBtn");
 
 const texts = [
@@ -180,90 +158,32 @@ const texts = [
     "Okay click me 😞"
 ];
 
-let attempts = 0;
-let unlocked = false;
-let lastMoveTime = 0;
+let index = 0;
+let activated = false; // 👈 prevents movement on load
 
-let posX = window.innerWidth / 2;
-let posY = window.innerHeight * 0.65;
-let targetX = posX;
-let targetY = posY;
-const ease = 0.15;
-let oscillation = 0;
+noBtn.addEventListener("mouseenter", () => {
+    if (!activated) activated = true;
 
-noBtn.style.left = posX + "px";
-noBtn.style.top = posY + "px";
+    const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+    const maxY = window.innerHeight - noBtn.offsetHeight - 20;
 
-function animateNo() {
-    oscillation += 0.2;
-    const offsetX = Math.cos(oscillation) * 10;
-    const offsetY = Math.sin(oscillation) * 5;
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
 
-    posX += (targetX - posX) * ease;
-    posY += (targetY - posY) * ease;
+    noBtn.style.position = "fixed";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
 
-    noBtn.style.left = posX + offsetX + "px";
-    noBtn.style.top = posY + offsetY + "px";
+    noBtn.textContent = texts[index % texts.length];
+    index++;
 
-    requestAnimationFrame(animateNo);
-}
-animateNo();
-
-function slideAway(e) {
-    if (unlocked) return;
-
-    const now = Date.now();
-    if (now - lastMoveTime < 350) return;
-    lastMoveTime = now;
-
-    const rect = noBtn.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    const mouseX = e.clientX || (e.touches && e.touches[0].clientX);
-    const mouseY = e.clientY || (e.touches && e.touches[0].clientY);
-    if (!mouseX || !mouseY) return;
-
-    const dx = centerX - mouseX;
-    const dy = centerY - mouseY;
-    const distance = Math.sqrt(dx*dx + dy*dy);
-
-    if (distance < 100) {
-        noBtn.innerText = texts[Math.min(attempts, texts.length - 1)];
-        attempts++;
-
-        const angle = Math.atan2(dy, dx);
-        const move = 120;
-
-        targetX += Math.cos(angle) * move;
-        targetY += Math.sin(angle) * move;
-
-        const padding = 20;
-        const maxX = window.innerWidth - rect.width - padding;
-        const maxY = window.innerHeight - rect.height - padding;
-
-        targetX = Math.max(padding, Math.min(targetX, maxX));
-        targetY = Math.max(padding, Math.min(targetY, maxY));
-
-        if (attempts >= texts.length) {
-            unlocked = true;
-            noBtn.classList.add("wiggle");
-            noBtn.style.backgroundColor = "#ffb703";
-        }
-    }
-}
-
-document.addEventListener("mousemove", slideAway);
-document.addEventListener("touchmove", slideAway);
-
-noBtn.addEventListener("click", () => {
-    if (!unlocked) return;
-    window.location.href = "yes.html";
+    noBtn.classList.add("wiggle");
+    setTimeout(() => noBtn.classList.remove("wiggle"), 300);
 });
 
-document.getElementById("yesBtn").addEventListener("click", () => {
+function goYes() {
     window.location.href = "yes.html";
-});
+}
 </script>
 
 </body>
