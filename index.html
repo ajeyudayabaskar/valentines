@@ -1,208 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Will You Be My Valentine? 💘</title>
+<meta charset="UTF-8">
+<title>For Devi ❤️</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+<style>
+* {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
-        body {
-            margin: 0;
-            height: 100vh;
-            background: linear-gradient(135deg, #ffb3c6, #ffc8dd);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-        }
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffb3c6, #ffc8dd);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
 
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            position: relative;
-            z-index: 2;
-        }
+/* MAIN CARD */
+.container {
+    background: linear-gradient(135deg, #ffe6eb, #fff0f5);
+    padding: 40px;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    position: relative;
+    z-index: 2;
+}
 
-        .container img.main {
-            width: 220px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
+.container img.main {
+    width: 220px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+}
 
-        h1 {
-            color: #ff4d6d;
-            margin-bottom: 25px;
-        }
+h1 {
+    color: #d6336c;
+    margin-bottom: 25px;
+}
 
-        .buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
+.buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
 
-        button {
-            padding: 12px 30px;
-            font-size: 16px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+/* BUTTONS */
+button {
+    padding: 12px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
 
-        #yesBtn {
-            background: #ff4d6d;
-            color: white;
-        }
+#yesBtn {
+    background: #ff4d6d;
+    color: white;
+}
 
-        #yesBtn:hover {
-            transform: scale(1.1);
-            background: #ff2e55;
-        }
+#yesBtn:hover {
+    transform: scale(1.1);
+    background: #ff2e55;
+}
 
-        #noBtn {
-            background: #adb5bd;
-            color: #333;
-            position: relative;
-        }
+#noBtn {
+    background: #adb5bd;
+    color: #333;
+    position: relative;
+}
 
-        /* Wiggle animation */
-        .wiggle {
-            animation: wiggle 0.3s ease;
-        }
+/* Wiggle */
+.wiggle {
+    animation: wiggle 0.3s ease;
+}
 
-        @keyframes wiggle {
-            0% { transform: rotate(0); }
-            25% { transform: rotate(-4deg); }
-            50% { transform: rotate(4deg); }
-            75% { transform: rotate(-3deg); }
-            100% { transform: rotate(0); }
-        }
+@keyframes wiggle {
+    0% { transform: rotate(0); }
+    25% { transform: rotate(-4deg); }
+    50% { transform: rotate(4deg); }
+    75% { transform: rotate(-3deg); }
+    100% { transform: rotate(0); }
+}
 
-        /* ---------- CORNER DECORATIONS ---------- */
+/* ---------- CORNER DECORATIONS ---------- */
+.corner {
+    position: fixed;
+    z-index: 1;
+    pointer-events: none;
+}
 
-        .corner {
-            position: fixed;
-            z-index: 1;
-            pointer-events: none;
-        }
+/* Drop animation */
+.top {
+    top: -220px;
+    animation: dropIn 1.2s ease forwards;
+}
 
-        /* Drop-in animation for top */
-        .top {
-            top: -200px;
-            animation: dropIn 1.2s ease forwards;
-        }
+@keyframes dropIn {
+    to { top: 0; }
+}
 
-        @keyframes dropIn {
-            to { top: 0; }
-        }
+/* TOP LEFT – BIGGER */
+.top.left {
+    left: 0;
+    width: 300px;
+}
 
-        /* TOP LEFT – MUCH BIGGER */
-        .top.left {
-            left: 0;
-            width: 260px;
-        }
+/* TOP RIGHT – HIGHER */
+.top.right {
+    right: 0;
+    top: -260px;
+    width: 200px;
+}
 
-        /* TOP RIGHT – SLIGHTLY BIGGER */
-        .top.right {
-            right: 0;
-            width: 190px;
-        }
+/* BOTTOM LEFT – MOVED RIGHT */
+.bottom.left {
+    bottom: 0;
+    left: 40px;
+    width: 170px;
+}
 
-        /* BOTTOM LEFT – Cupid */
-        .bottom.left {
-            bottom: 0;
-            left: 0;
-            width: 160px;
-        }
-
-        /* BOTTOM RIGHT – Calendar */
-        .bottom.right {
-            bottom: 0;
-            right: 0;
-            width: 140px;
-        }
-    </style>
+/* BOTTOM RIGHT – BIGGER */
+.bottom.right {
+    bottom: 0;
+    right: 0;
+    width: 180px;
+}
+</style>
 </head>
 
 <body>
 
-    <!-- TOP DECORATIONS -->
-    <img src="top-left.png" class="corner top left" alt="Hanging Hearts">
-    <img src="top-right.png" class="corner top right" alt="Hanging Hearts">
+<!-- DECORATIONS -->
+<img src="top-left.png" class="corner top left" alt="">
+<img src="top-right.png" class="corner top right" alt="">
+<img src="bottom-left.png" class="corner bottom left" alt="">
+<img src="bottom-right.png" class="corner bottom right" alt="">
 
-    <!-- BOTTOM DECORATIONS -->
-    <img src="bottom-left.png" class="corner bottom left" alt="Cupid">
-    <img src="bottom-right.png" class="corner bottom right" alt="Feb 14 Calendar">
+<!-- MAIN CONTENT -->
+<div class="container">
+    <img src="image.png" class="main" alt="Devi ❤️">
 
-    <!-- MAIN CONTENT -->
-    <div class="container">
-        <img src="image.png" class="main" alt="Devi ❤️">
+    <h1>Devi, will you be my Valentine? 💖</h1>
 
-        <h1>Will you be my Valentine? 💌</h1>
+    <div class="buttons">
+        <button id="yesBtn" onclick="window.location.href='yes.html'">
+            Yes 💘
+        </button>
 
-        <div class="buttons">
-            <button id="yesBtn" onclick="window.location.href='yes.html'">
-                Yes 💖
-            </button>
-
-            <button id="noBtn">
-                No 🙈
-            </button>
-        </div>
+        <button id="noBtn">
+            No 😢
+        </button>
     </div>
+</div>
 
-    <script>
-        const noBtn = document.getElementById("noBtn");
+<script>
+const noBtn = document.getElementById("noBtn");
 
-        const texts = [
-            "Are you sure? 😳",
-            "Think again 🤔",
-            "Please no 😢",
-            "You sure sure? 💔",
-            "Devi pls 😭",
-            "This hurts 🥺",
-            "Still no? 😵",
-            "Last chance 😐",
-            "Okay click me 😞"
-        ];
+const texts = [
+    "Are you sure? 😳",
+    "Think again 🤔",
+    "Please no 😢",
+    "You sure sure? 💔",
+    "Devi pls 😭",
+    "This hurts 🥺",
+    "Still no? 😵",
+    "Last chance 😐",
+    "Okay click me 😞"
+];
 
-        let index = 0;
-        let activated = false;
+let attempts = 0;
+let activated = false;
+let converted = false;
 
-        noBtn.addEventListener("mouseenter", () => {
+noBtn.addEventListener("mouseenter", () => {
 
-            // Activate movement ONLY after first hover
-            if (!activated) {
-                activated = true;
-                noBtn.style.position = "fixed";
-            }
+    if (converted) return;
 
-            const padding = 20;
+    if (!activated) {
+        activated = true;
+        noBtn.style.position = "fixed";
+    }
 
-            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+    if (attempts >= texts.length) {
+        // FINAL TRANSFORMATION
+        converted = true;
+        noBtn.textContent = "Caught ya… I was an YES all along 😘";
+        noBtn.style.background = "#ff4d6d";
+        noBtn.style.color = "white";
+        noBtn.style.left = "50%";
+        noBtn.style.top = "65%";
+        noBtn.style.transform = "translate(-50%, -50%) scale(1.1)";
+        noBtn.onclick = () => window.location.href = "yes.html";
+        return;
+    }
 
-            const x = Math.random() * maxX;
-            const y = Math.random() * maxY;
+    const padding = 20;
+    const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+    const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
-            noBtn.style.left = Math.max(padding, x) + "px";
-            noBtn.style.top = Math.max(padding, y) + "px";
+    noBtn.style.left = Math.random() * maxX + "px";
+    noBtn.style.top = Math.random() * maxY + "px";
 
-            noBtn.textContent = texts[index % texts.length];
-            index++;
+    noBtn.textContent = texts[attempts];
+    attempts++;
 
-            noBtn.classList.add("wiggle");
-            setTimeout(() => noBtn.classList.remove("wiggle"), 300);
-        });
-    </script>
+    noBtn.classList.add("wiggle");
+    setTimeout(() => noBtn.classList.remove("wiggle"), 300);
+});
+</script>
 
 </body>
 </html>
