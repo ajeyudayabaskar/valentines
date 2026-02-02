@@ -13,6 +13,47 @@ body {
     overflow: hidden;
 }
 
+/* ================= DECORATIONS ================= */
+
+/* Hanging hearts (top-left) */
+.hanging-hearts {
+    position: fixed;
+    top: -220px;
+    left: 0;
+    width: 220px;
+    z-index: 1;
+    animation: dropIn 1.2s ease-out forwards, sway 5s ease-in-out infinite;
+    mix-blend-mode: screen; /* removes black background visually */
+    pointer-events: none;
+}
+
+@keyframes dropIn {
+    to { top: -20px; }
+}
+
+@keyframes sway {
+    0%,100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+}
+
+/* Cupid (bottom-left) */
+.cupid {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    width: 140px;
+    z-index: 1;
+    animation: floatCupid 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes floatCupid {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* ================= MAIN CONTENT ================= */
+
 .container {
     min-height: 100vh;
     display: flex;
@@ -21,9 +62,11 @@ body {
     align-items: center;
     text-align: center;
     padding: 20px;
+    position: relative;
+    z-index: 2;
 }
 
-img {
+img.main {
     width: 70%;
     max-width: 300px;
     border-radius: 20px;
@@ -64,7 +107,7 @@ h1 {
     z-index: 10;
 }
 
-/* Wiggle animation (end effect) */
+/* Wiggle animation */
 @keyframes wiggle {
     0% { transform: rotate(0deg); }
     25% { transform: rotate(-5deg); }
@@ -98,8 +141,13 @@ h1 {
 
 <body>
 
+<!-- DECORATIVE ELEMENTS -->
+<img src="top-left.png" class="hanging-hearts" alt="">
+<img src="top-right.jpg" class="cupid" alt="">
+
+<!-- MAIN CONTENT -->
 <div class="container">
-    <img src="image.jpg" alt="Devi ❤️">
+    <img src="image.jpg" class="main" alt="Devi ❤️">
     <h1>Devi, will you be my Valentine? 💖</h1>
     <button id="yesBtn">Yes 💘</button>
 </div>
@@ -117,7 +165,7 @@ setInterval(() => {
     setTimeout(() => heart.remove(), 6000);
 }, 600);
 
-/* NO BUTTON LOGIC — slippery eel with twist */
+/* NO BUTTON LOGIC — slippery eel */
 const noBtn = document.getElementById("noBtn");
 
 const texts = [
@@ -134,7 +182,7 @@ const texts = [
 
 let attempts = 0;
 let unlocked = false;
-let lastMoveTime = 0; // cooldown
+let lastMoveTime = 0;
 
 let posX = window.innerWidth / 2;
 let posY = window.innerHeight * 0.65;
@@ -146,11 +194,9 @@ let oscillation = 0;
 noBtn.style.left = posX + "px";
 noBtn.style.top = posY + "px";
 
-// Animate No button with twist
 function animateNo() {
-    oscillation += 0.2; // controls twist frequency
-
-    const offsetX = Math.cos(oscillation) * 10; // perpendicular offset
+    oscillation += 0.2;
+    const offsetX = Math.cos(oscillation) * 10;
     const offsetY = Math.sin(oscillation) * 5;
 
     posX += (targetX - posX) * ease;
@@ -183,8 +229,7 @@ function slideAway(e) {
     const distance = Math.sqrt(dx*dx + dy*dy);
 
     if (distance < 100) {
-        // update text
-        noBtn.innerText = texts[Math.min(attempts, texts.length-1)];
+        noBtn.innerText = texts[Math.min(attempts, texts.length - 1)];
         attempts++;
 
         const angle = Math.atan2(dy, dx);
@@ -211,13 +256,11 @@ function slideAway(e) {
 document.addEventListener("mousemove", slideAway);
 document.addEventListener("touchmove", slideAway);
 
-/* Click after unlock */
 noBtn.addEventListener("click", () => {
     if (!unlocked) return;
     window.location.href = "yes.html";
 });
 
-/* YES BUTTON */
 document.getElementById("yesBtn").addEventListener("click", () => {
     window.location.href = "yes.html";
 });
