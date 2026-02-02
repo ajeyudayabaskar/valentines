@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Devi ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffe6eb, #fff0f5);
+    overflow: hidden;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+img {
+    width: 70%;
+    max-width: 300px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #d6336c;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+}
+
+/* YES BUTTON */
+#yesBtn {
+    background-color: #ff4d6d;
+    color: white;
+    font-size: 20px;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+/* NO BUTTON */
+#noBtn {
+    position: fixed;
+    background-color: #adb5bd;
+    color: white;
+    font-size: 16px;
+    padding: 10px 28px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    left: 50%;
+    top: 65%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+/* Wiggle animation (end effect) */
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.wiggle {
+    animation: wiggle 0.4s infinite;
+}
+
+/* Floating hearts */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 22px;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <img src="image.jpg" alt="Devi ❤️">
+    <h1>Devi, will you be my Valentine? 💖</h1>
+    <button id="yesBtn">Yes 💘</button>
+</div>
+
+<button id="noBtn">No 😢</button>
+
+<script>
+/* Floating hearts */
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}, 600);
+
+/* NO BUTTON LOGIC — slippery eel with twist */
+const noBtn = document.getElementById("noBtn");
+
+const texts = [
+    "Are you sure? 😳",
+    "Think again 🤔",
+    "Please no 😢",
+    "You sure sure? 💔",
+    "Devi pls 😭",
+    "This hurts 🥺",
+    "Still no? 😵",
+    "Last chance 😐",
+    "Okay click me 😞"
+];
+
+let attempts = 0;
+let unlocked = false;
+let lastMoveTime = 0; // cooldown
+
+let posX = window.innerWidth / 2;
+let posY = window.innerHeight * 0.65;
+let targetX = posX;
+let targetY = posY;
+const ease = 0.15;
+let oscillation = 0;
+
+noBtn.style.left = posX + "px";
+noBtn.style.top = posY + "px";
+
+// Animate No button with twist
+function animateNo() {
+    oscillation += 0.2; // controls twist frequency
+
+    const offsetX = Math.cos(oscillation) * 10; // perpendicular offset
+    const offsetY = Math.sin(oscillation) * 5;
+
+    posX += (targetX - posX) * ease;
+    posY += (targetY - posY) * ease;
+
+    noBtn.style.left = posX + offsetX + "px";
+    noBtn.style.top = posY + offsetY + "px";
+
+    requestAnimationFrame(animateNo);
+}
+animateNo();
+
+function slideAway(e) {
+    if (unlocked) return;
+
+    const now = Date.now();
+    if (now - lastMoveTime < 350) return;
+    lastMoveTime = now;
+
+    const rect = noBtn.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const mouseX = e.clientX || (e.touches && e.touches[0].clientX);
+    const mouseY = e.clientY || (e.touches && e.touches[0].clientY);
+    if (!mouseX || !mouseY) return;
+
+    const dx = centerX - mouseX;
+    const dy = centerY - mouseY;
+    const distance = Math.sqrt(dx*dx + dy*dy);
+
+    if (distance < 100) {
+        // update text
+        noBtn.innerText = texts[Math.min(attempts, texts.length-1)];
+        attempts++;
+
+        const angle = Math.atan2(dy, dx);
+        const move = 120;
+
+        targetX += Math.cos(angle) * move;
+        targetY += Math.sin(angle) * move;
+
+        const padding = 20;
+        const maxX = window.innerWidth - rect.width - padding;
+        const maxY = window.innerHeight - rect.height - padding;
+
+        targetX = Math.max(padding, Math.min(targetX, maxX));
+        targetY = Math.max(padding, Math.min(targetY, maxY));
+
+        if (attempts >= texts.length) {
+            unlocked = true;
+            noBtn.classList.add("wiggle");
+            noBtn.style.backgroundColor = "#ffb703";
+        }
+    }
+}
+
+document.addEventListener("mousemove", slideAway);
+document.addEventListener("touchmove", slideAway);
+
+/* Click after unlock */
+noBtn.addEventListener("click", () => {
+    if (!unlocked) return;
+    window.location.href = "yes.html";
+});
+
+/* YES BUTTON */
+document.getElementById("yesBtn").addEventListener("click", () => {
+    window.location.href = "yes.html";
+});
+</script>
+
+</body>
+</html>
