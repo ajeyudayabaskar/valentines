@@ -227,16 +227,12 @@ button {
     }
 
     .buttons {
-        flex-direction: column;
         gap: 15px;
-        width: 100%;
     }
 
     button {
         padding: 14px 25px;
         font-size: 15px;
-        width: 100%;
-        max-width: 200px;
     }
 
     /* Smaller corner images on mobile */
@@ -402,6 +398,28 @@ noBtn.addEventListener("click", () => {
     noBtn.style.background = "#ff4d6d";
     noBtn.style.color = "white";
     // Button stays where it is - no repositioning
+    
+    // Create confetti explosion
+    createConfetti();
+    
+    // Redirect after 1 second delay
+    setTimeout(() => {
+        location.href = "yes.html";
+    }, 1000);
+});
+
+// Also add touch support for the final click
+noBtn.addEventListener("touchend", (e) => {
+    if (!readyToConvert) return;
+    
+    e.preventDefault();
+    
+    // Create particle burst effect
+    createParticleBurst(noBtn);
+
+    noBtn.textContent = "Caught ya… I was an YES all along 😘";
+    noBtn.style.background = "#ff4d6d";
+    noBtn.style.color = "white";
     
     // Create confetti explosion
     createConfetti();
