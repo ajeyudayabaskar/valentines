@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>For Devi ❤️</title>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&family=Great+Vibes&family=Satisfy&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
@@ -133,7 +134,7 @@ button {
 /* Positions */
 .top.left {
     left: 0;
-    width: 200px;
+    width: 320px;
 }
 
 .top.right {
@@ -206,6 +207,93 @@ button {
         opacity: 0;
     }
 }
+
+/* MOBILE RESPONSIVE STYLES */
+@media (max-width: 768px) {
+    .container {
+        padding: 30px 20px;
+        max-width: 90%;
+        margin: 20px;
+    }
+
+    .container img.main {
+        width: 180px;
+        margin-bottom: 15px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .buttons {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+
+    button {
+        padding: 14px 25px;
+        font-size: 15px;
+        width: 100%;
+        max-width: 200px;
+    }
+
+    /* Smaller corner images on mobile */
+    .corner.top.left {
+        width: 200px;
+    }
+
+    .corner.top.right {
+        width: 120px;
+    }
+
+    .corner.bottom.left {
+        width: 120px;
+        left: 10px;
+    }
+
+    .corner.bottom.right {
+        width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 25px 15px;
+    }
+
+    .container img.main {
+        width: 150px;
+    }
+
+    h1 {
+        font-size: 1.3rem;
+    }
+
+    button {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+
+    /* Even smaller corner images on very small screens */
+    .corner.top.left {
+        width: 150px;
+    }
+
+    .corner.top.right {
+        width: 90px;
+    }
+
+    .corner.bottom.left {
+        width: 90px;
+        left: 5px;
+    }
+
+    .corner.bottom.right {
+        width: 90px;
+    }
+}
 </style>
 </head>
 
@@ -261,7 +349,7 @@ let attempts = 0;
 let movable = false;
 let readyToConvert = false;
 
-noBtn.addEventListener("mouseenter", () => {
+function moveNoButton() {
     if (!movable) {
         movable = true;
         noBtn.style.position = "fixed";
@@ -292,6 +380,15 @@ noBtn.addEventListener("mouseenter", () => {
             readyToConvert = true;
         }
     }
+}
+
+// Desktop support
+noBtn.addEventListener("mouseenter", moveNoButton);
+
+// Mobile/touch support
+noBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault(); // Prevent default touch behavior
+    moveNoButton();
 });
 
 /* Convert ONLY on click after "Okay click me" */
