@@ -4,11 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mission Successful 💌</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
 <style>
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     background: linear-gradient(
         -45deg,
         #ffd1dc,
@@ -43,6 +44,7 @@ h1 {
     font-size: 2.3rem;
     margin-bottom: 14px;
     animation: pulse 2.5s ease-in-out infinite;
+    font-family: 'Pacifico', cursive;
 }
 
 @keyframes pulse {
@@ -92,6 +94,8 @@ h1 {
     position: relative;
     overflow: hidden;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
 }
 
 #startBtn span {
@@ -152,6 +156,149 @@ h1 {
         transform: translateY(-20px);
     }
 }
+
+/* Envelope styles */
+.envelope-wrapper {
+    position: relative;
+    width: 450px;
+    height: 280px;
+    margin: 30px auto;
+    overflow: visible;
+}
+
+.envelope {
+    position: relative;
+    width: 450px;
+    height: 280px;
+    overflow: hidden;
+}
+
+.envelope.open {
+    overflow: visible;
+}
+
+.envelope-back {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 225px solid transparent;
+    border-right: 225px solid transparent;
+    border-bottom: 160px solid #ffb3c6;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.envelope-front {
+    position: absolute;
+    width: 450px;
+    height: 280px;
+    background: #ffc8dd;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    border-radius: 0 0 8px 8px;
+}
+
+.envelope-flap {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 225px solid transparent;
+    border-right: 225px solid transparent;
+    border-top: 160px solid #ff6b9d;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    transform-origin: top center;
+    transition: transform 0.8s ease, z-index 0s 0.8s;
+    border-radius: 8px 8px 0 0;
+}
+
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+/* Letter inside envelope */
+.letter {
+    position: absolute;
+    width: 380px;
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) scaleY(0.3);
+    transform-origin: bottom center;
+    z-index: 2;
+    transition: bottom 1.8s ease 0.5s, transform 1.8s ease 0.5s;
+}
+
+.envelope.open .letter {
+    bottom: 280px;
+    transform: translateX(-50%) scaleY(1);
+}
+
+.letter-content {
+    font-size: 1.05rem;
+    color: #6a040f;
+    line-height: 1.5;
+    text-align: left;
+    font-family: 'Pacifico', cursive;
+}
+
+.letter-content p {
+    margin: 0 0 0.5em 0;
+}
+
+.letter-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Envelope center image */
+.envelope-image {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 1s ease 0.8s;
+}
+
+.envelope.open .envelope-image {
+    opacity: 1;
+}
+
+.letter-seal {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #ff4d6d;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 2px 8px rgba(255, 77, 109, 0.4);
+    transition: opacity 0.3s ease;
+}
+
+.envelope.open .letter-seal {
+    opacity: 0;
+}
+
+.hidden {
+    display: none;
+}
 </style>
 </head>
 
@@ -160,48 +307,51 @@ h1 {
 <div class="container">
     <h1>Mission successful 💌</h1>
 
-    <div id="intro">This is something I wanted to tell you properly…</div>
+    <div class="envelope-wrapper">
+        <div class="envelope" id="envelope">
+            <div class="envelope-back"></div>
+            <div class="letter">
+                <div class="letter-content" id="letterContent"></div>
+            </div>
+            <div class="envelope-front"></div>
+            <img src="envelope_centre.png" class="envelope-image" alt="❤️">
+            <div class="envelope-flap"></div>
+            <div class="letter-seal">💕</div>
+        </div>
+    </div>
 
-    <div id="message"></div>
+    <div id="intro" class="hidden">This is something I wanted to tell you properly…</div>
+
+    <div id="message" class="hidden"></div>
 
     <button id="startBtn">
-        <span class="defaultText">Special message from Aj 💌</span>
+        <span class="defaultText">Open the envelope 💌</span>
         <span class="hoverText">Go on… open it 💕</span>
     </button>
 </div>
 
 <script>
-const rawText =
-`I knew you would say Yes 😉😉😉
+const rawText = `<p>I knew you would say Yes 😉😉😉</p><p>Happy Valentines day, Devi 💝... with you around even normal days feels like a Valentines day to me 💓 and I want you to be my forever Valentine 💌💖</p><p>Watch out for more presents and surprises 🎁🎁🎁</p>`;
 
-Happy Valentines day, Devi 💝... with you around even normal days feels like a Valentines day to me 💓 and I want you to be my forever Valentine 💌💖
-
-Watch out for more presents and surprises 🎁🎁🎁`;
-
-let index = 0;
-const speed = 40;
-const messageEl = document.getElementById("message");
+const letterContentEl = document.getElementById("letterContent");
 const startBtn = document.getElementById("startBtn");
-const intro = document.getElementById("intro");
+const envelope = document.getElementById("envelope");
 
 let heartInterval = 900;
 let heartTimer = setInterval(createHeart, heartInterval);
 
-function typeWriter() {
-    if (index < rawText.length) {
-        messageEl.innerHTML += rawText.charAt(index);
-        index++;
-        setTimeout(typeWriter, speed);
-    } else {
-        applyGlow();
-    }
-}
-
 startBtn.addEventListener("click", () => {
+    // Open the envelope
+    envelope.classList.add("open");
+    
+    // Show letter content immediately as envelope opens
+    letterContentEl.innerHTML = rawText;
+    applyGlow();
+    
+    // Hide the button
     startBtn.style.display = "none";
-    intro.style.opacity = 1;
-    typeWriter();
 
+    // Speed up hearts
     clearInterval(heartTimer);
     heartTimer = setInterval(createHeart, 400);
 });
@@ -244,11 +394,11 @@ document.addEventListener("touchmove", e => {
 /* Glow important words */
 function applyGlow() {
     const words = ["Yes", "Devi", "forever Valentine"];
-    let html = messageEl.innerHTML;
+    let html = letterContentEl.innerHTML;
     words.forEach(word => {
         html = html.replace(word, `<span class="glow">${word}</span>`);
     });
-    messageEl.innerHTML = html;
+    letterContentEl.innerHTML = html;
 }
 </script>
 
