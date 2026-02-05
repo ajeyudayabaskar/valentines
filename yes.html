@@ -12,13 +12,14 @@ body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(
         -45deg,
+        #ff9eb5,
+        #ffb3c6,
+        #ffc8dd,
         #ffd1dc,
-        #ffe6eb,
-        #ffdbe6,
-        #fff0f5
+        #ffe0e8
     );
     background-size: 400% 400%;
-    animation: bgPulse 28s ease infinite;
+    animation: bgPulse 20s ease infinite;
     overflow: hidden;
 }
 
@@ -40,11 +41,20 @@ body {
 }
 
 h1 {
-    color: #c9184a;
     font-size: 2.3rem;
     margin-bottom: 14px;
     animation: pulse 2.5s ease-in-out infinite;
     font-family: 'Pacifico', cursive;
+    color: #c9184a;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #ff6b9d, #c9184a, #ff4d6d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+    padding: 0 2px;
 }
 
 @keyframes pulse {
@@ -84,18 +94,37 @@ h1 {
 
 #startBtn {
     margin-top: 30px;
-    background-color: #ff6b81;
+    background: linear-gradient(135deg, #ff6b81, #ff4d6d);
     color: white;
     border: none;
-    border-radius: 16px;
-    padding: 15px 36px;
+    border-radius: 25px;
+    padding: 18px 45px;
     font-size: 18px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
+    box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4), 
+                0 4px 10px rgba(255, 107, 129, 0.3),
+                inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#startBtn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+#startBtn:hover::before {
+    left: 100%;
 }
 
 #startBtn span {
@@ -113,8 +142,17 @@ h1 {
 }
 
 #startBtn:hover {
-    transform: scale(1.06);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(255, 77, 109, 0.5), 
+                0 6px 15px rgba(255, 107, 129, 0.4),
+                inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+}
+
+#startBtn:active {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 6px 15px rgba(255, 77, 109, 0.4), 
+                0 3px 8px rgba(255, 107, 129, 0.3),
+                inset 0 -2px 0 rgba(0, 0, 0, 0.2);
 }
 
 #startBtn:hover .defaultText {
@@ -157,6 +195,150 @@ h1 {
     }
 }
 
+/* MOBILE RESPONSIVE STYLES */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    /* Envelope wrapper - smaller on mobile */
+    .envelope-wrapper {
+        width: 340px;
+        height: 212px;
+        filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.3));
+    }
+
+    .envelope {
+        width: 340px;
+        height: 212px;
+    }
+
+    .envelope-back {
+        border-left: 170px solid transparent;
+        border-right: 170px solid transparent;
+        border-bottom: 121px solid #ffb3c6;
+    }
+
+    .envelope-front {
+        width: 340px;
+        height: 212px;
+    }
+
+    .envelope-flap {
+        border-left: 170px solid transparent;
+        border-right: 170px solid transparent;
+        border-top: 121px solid #ff6b9d;
+    }
+
+    /* Letter - smaller and adjusted position */
+    .letter {
+        width: 300px;
+        padding: 20px;
+        bottom: 20px;
+    }
+
+    .envelope.open .letter {
+        bottom: 220px;
+    }
+
+    .letter-content {
+        font-size: 0.95rem;
+        line-height: 1.4;
+    }
+
+    /* Envelope image */
+    .envelope-image {
+        width: 90px;
+        height: 90px;
+    }
+
+    /* Button */
+    #startBtn {
+        padding: 15px 35px;
+        font-size: 16px;
+    }
+
+    /* Disable hover effects on mobile */
+    .envelope-wrapper:hover {
+        transform: none;
+        filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.3));
+    }
+
+    .envelope.open .letter:hover {
+        transform: translateX(-50%) scaleY(1);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.4), 0 8px 16px rgba(0,0,0,0.25);
+    }
+
+    .envelope-wrapper:hover .letter-seal {
+        transform: translate(-50%, -50%);
+        box-shadow: 0 4px 12px rgba(255, 77, 109, 0.5),
+                    0 2px 6px rgba(0, 0, 0, 0.3),
+                    inset 0 -2px 4px rgba(0, 0, 0, 0.2),
+                    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .envelope-wrapper {
+        width: 300px;
+        height: 187px;
+    }
+
+    .envelope {
+        width: 300px;
+        height: 187px;
+    }
+
+    .envelope-back {
+        border-left: 150px solid transparent;
+        border-right: 150px solid transparent;
+        border-bottom: 107px solid #ffb3c6;
+    }
+
+    .envelope-front {
+        width: 300px;
+        height: 187px;
+    }
+
+    .envelope-flap {
+        border-left: 150px solid transparent;
+        border-right: 150px solid transparent;
+        border-top: 107px solid #ff6b9d;
+    }
+
+    .letter {
+        width: 260px;
+        padding: 18px;
+    }
+
+    .envelope.open .letter {
+        bottom: 200px;
+    }
+
+    .letter-content {
+        font-size: 0.9rem;
+    }
+
+    .envelope-image {
+        width: 70px;
+        height: 70px;
+    }
+
+    #startBtn {
+        padding: 12px 28px;
+        font-size: 15px;
+    }
+}
+
 /* Envelope styles */
 .envelope-wrapper {
     position: relative;
@@ -164,6 +346,15 @@ h1 {
     height: 280px;
     margin: 30px auto;
     overflow: visible;
+    filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.3));
+    transition: transform 0.4s ease, filter 0.4s ease;
+    cursor: pointer;
+}
+
+.envelope-wrapper:hover {
+    transform: translateY(-5px) scale(1.02);
+    filter: drop-shadow(0 20px 45px rgba(255, 107, 157, 0.4)) 
+            drop-shadow(0 10px 25px rgba(0, 0, 0, 0.3));
 }
 
 .envelope {
@@ -177,6 +368,10 @@ h1 {
     overflow: visible;
 }
 
+.envelope.open ~ * {
+    pointer-events: none;
+}
+
 .envelope-back {
     position: absolute;
     width: 0;
@@ -187,17 +382,21 @@ h1 {
     top: 0;
     left: 0;
     z-index: 1;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
 }
 
 .envelope-front {
     position: absolute;
     width: 450px;
     height: 280px;
-    background: #ffc8dd;
+    background: linear-gradient(135deg, #ffc8dd 0%, #ffb3c6 100%);
     top: 0;
     left: 0;
     z-index: 3;
     border-radius: 0 0 8px 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 
+                0 5px 15px rgba(0, 0, 0, 0.15),
+                inset 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .envelope-flap {
@@ -213,11 +412,13 @@ h1 {
     transform-origin: top center;
     transition: transform 0.8s ease, z-index 0s 0.8s;
     border-radius: 8px 8px 0 0;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
 }
 
 .envelope.open .envelope-flap {
     transform: rotateX(180deg);
     z-index: 1;
+    filter: drop-shadow(0 -4px 8px rgba(0, 0, 0, 0.2));
 }
 
 /* Letter inside envelope */
@@ -225,20 +426,38 @@ h1 {
     position: absolute;
     width: 380px;
     background: white;
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 30px,
+            rgba(200, 200, 200, 0.1) 30px,
+            rgba(200, 200, 200, 0.1) 31px
+        );
     padding: 25px;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3), 0 4px 8px rgba(0,0,0,0.2);
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%) scaleY(0.3);
     transform-origin: bottom center;
     z-index: 2;
-    transition: bottom 1.8s ease 0.5s, transform 1.8s ease 0.5s;
+    transition: bottom 1.8s ease 0.5s, transform 1.8s ease 0.5s, box-shadow 1.8s ease 0.5s;
+    cursor: default;
 }
 
 .envelope.open .letter {
     bottom: 280px;
     transform: translateX(-50%) scaleY(1);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4), 0 8px 16px rgba(0,0,0,0.25);
+    transition: bottom 1.8s ease 0.5s, transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.envelope.open .letter:hover {
+    transform: translateX(-50%) scaleY(1) translateY(-10px);
+    box-shadow: 0 20px 50px rgba(255, 107, 157, 0.4), 
+                0 10px 25px rgba(0,0,0,0.3),
+                0 0 20px rgba(255, 107, 157, 0.2);
 }
 
 .letter-content {
@@ -267,18 +486,19 @@ h1 {
     transform: translate(-50%, -50%);
     z-index: 3;
     opacity: 0;
-    transition: opacity 1s ease 0.8s;
+    transition: opacity 2s ease 0.8s;
 }
 
 .envelope.open .envelope-image {
     opacity: 1;
 }
 
+/* Wax seal */
 .letter-seal {
     position: absolute;
     width: 40px;
     height: 40px;
-    background: #ff4d6d;
+    background: radial-gradient(circle at 30% 30%, #ff6b9d, #ff4d6d);
     border-radius: 50%;
     top: 50%;
     left: 50%;
@@ -288,8 +508,20 @@ h1 {
     align-items: center;
     justify-content: center;
     font-size: 20px;
-    box-shadow: 0 2px 8px rgba(255, 77, 109, 0.4);
-    transition: opacity 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 77, 109, 0.5),
+                0 2px 6px rgba(0, 0, 0, 0.3),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.2),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    transition: opacity 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.envelope-wrapper:hover .letter-seal {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 6px 16px rgba(255, 77, 109, 0.6),
+                0 3px 8px rgba(0, 0, 0, 0.4),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.2),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3),
+                0 0 15px rgba(255, 107, 157, 0.4);
 }
 
 .envelope.open .letter-seal {
@@ -305,7 +537,7 @@ h1 {
 <body>
 
 <div class="container">
-    <h1>Mission successful 💌</h1>
+    <h1><span class="gradient-text">Mission successful</span> 💌</h1>
 
     <div class="envelope-wrapper">
         <div class="envelope" id="envelope">
@@ -354,6 +586,12 @@ startBtn.addEventListener("click", () => {
     // Speed up hearts
     clearInterval(heartTimer);
     heartTimer = setInterval(createHeart, 400);
+});
+
+// Touch support for mobile
+startBtn.addEventListener("touchend", (e) => {
+    e.preventDefault();
+    startBtn.click();
 });
 
 /* Floating hearts */
