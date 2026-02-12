@@ -197,62 +197,73 @@ h1 {
 
 /* MOBILE RESPONSIVE STYLES */
 @media (max-width: 768px) {
+
     body {
         overflow-y: auto;
-    }
-
-    h1 {
-        font-size: 1.6rem;
-        margin-bottom: 15px;
+        min-height: 100vh;
     }
 
     .container {
         padding: 15px;
-        min-height: auto;
+        justify-content: flex-start;
+        padding-top: 40px;
+        padding-bottom: 60px;
     }
 
-    /* Envelope wrapper - smaller on mobile */
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    /* ---- ENVELOPE ---- */
     .envelope-wrapper {
-        width: 90%;
-        max-width: 340px;
-        height: auto;
-        aspect-ratio: 450/280;
-        filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.3));
+        width: 320px;
+        height: 200px;
         margin: 20px auto;
+        filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.25));
+        transition: none;
+    }
+
+    .envelope-wrapper:hover {
+        transform: none;
+        filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.25));
     }
 
     .envelope {
-        width: 100%;
-        height: 100%;
+        width: 320px;
+        height: 200px;
     }
 
     .envelope-back {
-        border-left: 37.8% solid transparent;
-        border-right: 37.8% solid transparent;
-        border-bottom: 57.1% solid #ffb3c6;
+        border-left: 160px solid transparent;
+        border-right: 160px solid transparent;
+        border-bottom: 114px solid #ffb3c6;
     }
 
     .envelope-front {
-        width: 100%;
-        height: 100%;
+        width: 320px;
+        height: 200px;
     }
 
     .envelope-flap {
-        border-left: 37.8% solid transparent;
-        border-right: 37.8% solid transparent;
-        border-top: 57.1% solid #ff6b9d;
+        border-left: 160px solid transparent;
+        border-right: 160px solid transparent;
+        border-top: 114px solid #ff6b9d;
     }
 
-    /* Letter - smaller and adjusted position */
+    /* ---- LETTER ---- */
+    /* When closed - hide inside envelope */
     .letter {
-        width: 84%;
+        width: 280px;
         padding: 18px;
-        bottom: 8%;
-        font-size: 0.9rem;
+        bottom: 20px;
+        transform: translateX(-50%) scaleY(0.3);
     }
 
+    /* When open - slide up but stay visible on screen */
     .envelope.open .letter {
-        bottom: 78%;
+        bottom: 160px;
+        transform: translateX(-50%) scaleY(1);
     }
 
     .letter-content {
@@ -264,76 +275,10 @@ h1 {
         margin: 0 0 0.4em 0;
     }
 
-    /* Envelope image */
+    /* ---- OTHER ELEMENTS ---- */
     .envelope-image {
         width: 80px;
         height: 80px;
-    }
-
-    /* Wax seal */
-    .letter-seal {
-        width: 35px;
-        height: 35px;
-        font-size: 18px;
-    }
-
-    /* Button */
-    #startBtn {
-        padding: 14px 32px;
-        font-size: 16px;
-        margin-top: 20px;
-    }
-
-    /* Disable hover effects on mobile */
-    .envelope-wrapper:hover {
-        transform: none;
-        filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.3));
-    }
-
-    .envelope.open .letter:hover {
-        transform: translateX(-50%) scaleY(1);
-        box-shadow: 0 15px 40px rgba(0,0,0,0.4), 0 8px 16px rgba(0,0,0,0.25);
-    }
-
-    .envelope-wrapper:hover .letter-seal {
-        transform: translate(-50%, -50%);
-        box-shadow: 0 4px 12px rgba(255, 77, 109, 0.5),
-                    0 2px 6px rgba(0, 0, 0, 0.3),
-                    inset 0 -2px 4px rgba(0, 0, 0, 0.2),
-                    inset 0 2px 4px rgba(255, 255, 255, 0.3);
-    }
-
-    #startBtn:hover {
-        transform: none;
-        box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4), 
-                    0 4px 10px rgba(255, 107, 129, 0.3),
-                    inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-    }
-}
-
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.4rem;
-    }
-
-    .envelope-wrapper {
-        max-width: 300px;
-        margin: 15px auto;
-    }
-
-    .letter {
-        width: 86%;
-        padding: 15px;
-    }
-
-    .letter-content {
-        font-size: 0.85rem;
-        line-height: 1.4;
-    }
-
-    .envelope-image {
-        width: 65px;
-        height: 65px;
     }
 
     .letter-seal {
@@ -343,7 +288,92 @@ h1 {
     }
 
     #startBtn {
-        padding: 12px 28px;
+        padding: 14px 32px;
+        font-size: 16px;
+        margin-top: 20px;
+    }
+
+    #startBtn:hover {
+        transform: none;
+        box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4), 
+                    0 4px 10px rgba(255, 107, 129, 0.3),
+                    inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .envelope.open .letter:hover {
+        transform: translateX(-50%) scaleY(1);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.3), 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .envelope-wrapper:hover .letter-seal {
+        transform: translate(-50%, -50%);
+    }
+}
+
+@media (max-width: 480px) {
+
+    .container {
+        padding-top: 30px;
+    }
+
+    h1 {
+        font-size: 1.3rem;
+    }
+
+    .envelope-wrapper {
+        width: 280px;
+        height: 175px;
+    }
+
+    .envelope {
+        width: 280px;
+        height: 175px;
+    }
+
+    .envelope-back {
+        border-left: 140px solid transparent;
+        border-right: 140px solid transparent;
+        border-bottom: 100px solid #ffb3c6;
+    }
+
+    .envelope-front {
+        width: 280px;
+        height: 175px;
+    }
+
+    .envelope-flap {
+        border-left: 140px solid transparent;
+        border-right: 140px solid transparent;
+        border-top: 100px solid #ff6b9d;
+    }
+
+    .letter {
+        width: 245px;
+        padding: 15px;
+        bottom: 15px;
+    }
+
+    .envelope.open .letter {
+        bottom: 145px;
+    }
+
+    .letter-content {
+        font-size: 0.85rem;
+    }
+
+    .envelope-image {
+        width: 65px;
+        height: 65px;
+    }
+
+    .letter-seal {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+    }
+
+    #startBtn {
+        padding: 13px 28px;
         font-size: 15px;
     }
 }
